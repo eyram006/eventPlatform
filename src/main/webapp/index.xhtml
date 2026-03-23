@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <h:head>
+        <title>EventGest | Dashboard</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+        <style>
+            :root {
+                --primary: #6366f1;
+                --primary-soft: #e0e7ff;
+                --bg: #f8fafc;
+                --card-bg: #ffffff;
+                --text-main: #1e293b;
+                --text-muted: #64748b;
+                --border: #e2e8f0;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--bg);
+                color: var(--text-main);
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Navigation */
+            nav {
+                background: var(--card-bg);
+                padding: 1rem 10%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid var(--border);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+            }
+
+            .logo {
+                font-weight: 700;
+                font-size: 1.25rem;
+                color: var(--primary);
+                text-decoration: none;
+            }
+
+            .nav-links { display: flex; gap: 20px; }
+            .nav-links a {
+                text-decoration: none;
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                font-weight: 500;
+                transition: color 0.2s;
+            }
+            .nav-links a:hover { color: var(--primary); }
+
+            /* Hero Section */
+            .hero {
+                padding: 60px 10%;
+                text-align: center;
+                background: linear-gradient(to bottom, #ffffff, var(--bg));
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                margin-bottom: 10px;
+                letter-spacing: -0.05em;
+            }
+
+            .hero p { color: var(--text-muted); font-size: 1.1rem; }
+
+            /* Grid de Menus */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 24px;
+                padding: 20px 10% 60px 10%;
+            }
+
+            .menu-card {
+                background: var(--card-bg);
+                border-radius: 16px;
+                padding: 32px;
+                border: 1px solid var(--border);
+                transition: transform 0.2s, box-shadow 0.2s;
+                text-decoration: none;
+                color: inherit;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .menu-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 20px -5px rgba(0,0,0,0.05);
+                border-color: var(--primary);
+            }
+
+            .icon-box {
+                width: 48px;
+                height: 48px;
+                background: var(--primary-soft);
+                color: var(--primary);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+            }
+
+            .menu-card h3 { margin: 0; font-weight: 600; font-size: 1.25rem; }
+            .menu-card p { margin: 0; color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+            .stat {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: var(--primary);
+                background: #f1f5f9;
+                padding: 4px 12px;
+                border-radius: 20px;
+                align-self: flex-start;
+            }
+
+            .footer {
+                text-align: center;
+                padding: 40px;
+                color: var(--text-muted);
+                font-size: 0.85rem;
+                border-top: 1px solid var(--border);
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <nav>
+            <a href="#" class="logo">EventGest.</a>
+            <div class="nav-links">
+                <h:link outcome="Organisateur.xhtml" value="Organisateurs"/>
+                <h:link outcome="Gerant.xhtml" value="Gérants"/>
+                <h:link outcome="Client.xhtml" value="Clients"/>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <h1>Bienvenue</h1>
+            <p>Gérez vos événements, votre équipe et vos clients en un seul endroit.</p>
+        </header>
+
+        <div class="dashboard-grid">
+            
+            <h:link outcome="Organisateur.xhtml" styleClass="menu-card">
+                <div class="icon-box">👤</div>
+                <h3>Organisateurs</h3>
+                <p>Configurez les profils des responsables et administrateurs du système.</p>
+                <span class="stat">Accéder au module →</span>
+            </h:link>
+
+            <h:link outcome="Gerant.xhtml" styleClass="menu-card">
+                <div class="icon-box">💼</div>
+                <h3>Gérants</h3>
+                <p>Gérez votre personnel, attribuez des rôles et suivez les activités internes.</p>
+                <span class="stat">Accéder au module →</span>
+            </h:link>
+
+            <h:link outcome="Client.xhtml" styleClass="menu-card">
+                <div class="icon-box">👥</div>
+                <h3>Clients</h3>
+                <p>Répertoire complet de vos clients, contacts et historiques de réservations.</p>
+                <span class="stat">Accéder au module →</span>
+            </h:link>
+
+        </div>
+    </h:body>
+</html>

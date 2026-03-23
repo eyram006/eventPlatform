@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0" xmlns="https://jakarta.ee/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="EventGestPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>java:app/Eveny</jta-data-source>
+    <class>entities.Client</class>
+    <class>entities.Personne</class>
+    <class>entities.Organisateur</class>
+    <class>entities.Gerant</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipseLink.target-database" value="PostgreSQL"/>
+      <property name="eclipselink.weaving" value="false"/>
+    </properties>
+  </persistence-unit>
+</persistence>

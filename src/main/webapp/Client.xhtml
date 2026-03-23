@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:pt="jakarta.faces.passthrough">
+    <h:head>
+        <title>EventGest | Clients</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+        <style>
+            :root {
+                --primary: #6366f1;
+                --primary-soft: #e0e7ff;
+                --bg: #f8fafc;
+                --card-bg: #ffffff;
+                --text-main: #1e293b;
+                --text-muted: #64748b;
+                --border: #e2e8f0;
+                --danger: #f43f5e;
+                --success: #10b981;
+            }
+
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: var(--bg);
+                color: var(--text-main);
+                margin: 0; padding: 0;
+            }
+
+            /* Navigation */
+            nav {
+                background: var(--card-bg); padding: 1rem 10%; display: flex;
+                justify-content: space-between; align-items: center;
+                border-bottom: 1px solid var(--border); position: sticky;
+                top: 0; z-index: 100; margin-bottom: 40px;
+            }
+            .logo { font-weight: 700; font-size: 1.25rem; color: var(--primary); text-decoration: none; }
+            .nav-links { display: flex; gap: 20px; }
+            .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
+            .nav-links a:hover { color: var(--primary); }
+
+            .container { width: 80%; max-width: 1100px; margin: 0 auto; padding-bottom: 50px; }
+
+            /* Messages et Formulaires */
+            .messages { list-style-type: none; padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: 600; }
+            .messages li.info { color: #047857; background-color: #d1fae5; border: 1px solid #10b981; }
+            .messages li.error { color: #be123c; background-color: #ffe4e6; border: 1px solid #f43f5e; }
+
+            .card-form {
+                background: var(--card-bg); padding: 24px; border-radius: 12px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 40px;
+            }
+            .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+            .form-group { display: flex; flex-direction: column; gap: 8px; }
+            label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+            input { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); transition: all 0.2s; }
+            input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+            
+            /* Style pour les erreurs de validation sous les inputs */
+            .error-msg { color: var(--danger); font-size: 0.8rem; font-weight: 600; margin-top: 4px; display: block; }
+
+            .btn-save {
+                background: var(--primary); color: white; padding: 12px 24px; border: none;
+                border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px;
+            }
+
+            /* --- NOUVEAUX STYLES : Barre de recherche --- */
+            .header-with-search {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .search-input {
+                width: 300px;
+                padding: 10px 18px;
+                border-radius: 20px;
+                border: 1px solid var(--border);
+                font-size: 0.9rem;
+                transition: all 0.2s;
+                /* Icône de loupe intégrée en background SVG */
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2364748b" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 95% center;
+                background-color: white;
+                background-size: 16px;
+            }
+            .search-input:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            }
+
+            /* Cartes Clients */
+            .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+            .client-card {
+                background: var(--card-bg); border-radius: 12px; padding: 20px;
+                border: 1px solid var(--border); display: flex; flex-direction: column; transition: transform 0.2s;
+            }
+            .client-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
+            .client-avatar {
+                width: 40px; height: 40px; background: var(--primary-soft); color: var(--primary);
+                border-radius: 10px; display: flex; align-items: center; justify-content: center;
+                font-weight: 700; margin-bottom: 12px;
+            }
+            .client-name { font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; }
+            .client-email { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+            .client-phone { font-family: monospace; font-size: 0.9rem; font-weight: 600; }
+            .client-actions {
+                margin-top: 20px; padding-top: 15px; border-top: 1px solid #f1f5f9;
+                display: flex; justify-content: space-between; align-items: center;
+            }
+            .edit-btn { color: var(--primary); font-weight: 600; text-decoration: none; font-size: 0.85rem; cursor: pointer; }
+            .delete-btn { color: var(--danger); font-weight: 600; text-decoration: none; font-size: 0.85rem; cursor: pointer; }
+
+            /* --- STYLES DES MODALES PERSONNALISÉES --- */
+            .modal-overlay {
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(15, 23, 42, 0.6); display: none;
+                justify-content: center; align-items: center; z-index: 9999;
+                backdrop-filter: blur(2px);
+            }
+            .modal-content {
+                background: white; width: 500px; max-width: 90%; border-radius: 12px;
+                padding: 25px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            }
+            .modal-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+            .modal-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+            .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
+            .btn-cancel {
+                padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border);
+                background: white; color: var(--text-main); font-weight: 600; cursor: pointer;
+            }
+            .btn-confirm-delete { background: var(--danger); color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+            .btn-confirm-update { background: var(--success); color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+            
+            /* Grille de comparaison Avant/Après */
+            .diff-container { display: flex; flex-direction: column; gap: 10px; }
+            .diff-row { display: grid; grid-template-columns: 100px 1fr 1fr; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; align-items: center; }
+            .diff-label { font-weight: 700; text-transform: uppercase; color: var(--text-muted); font-size: 0.75rem; }
+            .diff-old { color: var(--danger); text-decoration: line-through; }
+            .diff-new { color: var(--success); font-weight: 600; }
+        </style>
+    </h:head>
+
+    <h:body>
+        <nav>
+            <h:link outcome="index.xhtml" styleClass="logo">EventGest.</h:link>
+            <div class="nav-links">
+                <h:link outcome="Organisateur.xhtml" value="Organisateurs"/>
+                <h:link outcome="Gerant.xhtml" value="Gérants"/>
+                <h:link outcome="Client.xhtml" style="color: var(--primary)" value="Clients"/>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Gestion des Clients</h2>
+
+            <h:messages id="messagesGlobal" globalOnly="true" styleClass="messages" errorClass="error" infoClass="info" />
+
+            <h:form id="form" styleClass="card-form">
+                
+                <h:panelGroup layout="block" id="originalValues" style="display:none;">
+                    <span id="orig_nom">#{clientBean.client.personne.nom}</span>
+                    <span id="orig_prenom">#{clientBean.client.personne.prenom}</span>
+                    <span id="orig_email">#{clientBean.client.personne.email}</span>
+                    <span id="orig_tel">#{clientBean.client.telephone}</span>
+                </h:panelGroup>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <h:inputText id="nom" value="#{clientBean.client.personne.nom}" 
+                                     required="true" requiredMessage="Le nom est obligatoire."
+                                     validatorMessage="Le nom doit contenir entre 2 et 50 caractères.">
+                            <f:validateLength minimum="2" maximum="50" />
+                        </h:inputText>
+                        <h:message for="nom" styleClass="error-msg" />
+                    </div>
+                    <div class="form-group">
+                        <label>Prénom</label>
+                        <h:inputText id="prenom" value="#{clientBean.client.personne.prenom}" 
+                                     required="true" requiredMessage="Le prénom est obligatoire."
+                                     validatorMessage="Le prénom doit contenir entre 2 et 50 caractères.">
+                            <f:validateLength minimum="2" maximum="50" />
+                        </h:inputText>
+                        <h:message for="prenom" styleClass="error-msg" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <h:inputText id="email" value="#{clientBean.client.personne.email}" 
+                                     required="true" requiredMessage="L'email est obligatoire."
+                                     validatorMessage="Veuillez saisir une adresse email valide.">
+                            <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$" />
+                        </h:inputText>
+                        <h:message for="email" styleClass="error-msg" />
+                    </div>
+                    <div class="form-group">
+                        <label>Téléphone</label>
+                        <h:inputText id="telephone" value="#{clientBean.client.telephone}" 
+                                     required="true" requiredMessage="Le numéro est obligatoire."
+                                     validatorMessage="Le format du numéro est invalide (ex: +228 90 00 00 00).">
+                            <f:validateRegex pattern="^\+?[0-9\s]{8,15}$" />
+                        </h:inputText>
+                        <h:message for="telephone" styleClass="error-msg" />
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end;">
+                    <h:commandButton id="btnSubmit" 
+                                     value="#{clientBean.client.id == null ? 'Enregistrer' : 'Mettre à jour'}" 
+                                     action="#{clientBean.ajouter}" 
+                                     styleClass="btn-save"
+                                     onclick="return interceptUpdate(event, this.id, #{clientBean.client.id != null});">
+                        <f:ajax execute="@form" render=":cardsForm :form :messagesGlobal" />
+                    </h:commandButton>
+                </div>
+            </h:form>
+
+            <div class="header-with-search">
+                <h2 style="margin: 0;">Répertoire Clients</h2>
+                
+                <h:form id="searchForm">
+                    <h:inputText value="#{clientBean.motCle}" styleClass="search-input" 
+                                 pt:placeholder="Rechercher par nom, email, tel...">
+                        <f:ajax event="keyup" listener="#{clientBean.rechercherClients}" render=":cardsForm" delay="300" />
+                    </h:inputText>
+                </h:form>
+            </div>
+
+            <h:form id="cardsForm">
+                <div class="client-grid">
+                    <ui:repeat id="repeatClients" value="#{clientBean.liste}" var="c">
+                        <div class="client-card">
+                            <div class="client-avatar">
+                                #{not empty c.personne.nom ? c.personne.nom.substring(0,1).toUpperCase() : 'C'}
+                            </div>
+                            <div class="client-name">#{c.personne.nom} #{c.personne.prenom}</div>
+                            <div class="client-email">#{c.personne.email}</div>
+                            <div class="client-phone">📱 #{c.telephone}</div>
+
+                            <div class="client-actions">
+                                <h:commandLink id="btnModifier_#{c.id}" action="#{clientBean.modifier(c)}" styleClass="edit-btn">
+                                    <f:ajax execute="@this" render=":form :messagesGlobal" resetValues="true" />
+                                    Modifier
+                                </h:commandLink>
+
+                                <h:commandLink id="btnSupprimer_#{c.id}" action="#{clientBean.supprimer(c.id)}" styleClass="delete-btn"
+                                               onclick="return interceptDelete(event, this);">
+                                    <f:ajax execute="@this" render=":cardsForm :messagesGlobal" />
+                                    Supprimer
+                                </h:commandLink>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+                
+                <h:panelGroup rendered="#{empty clientBean.liste}" style="display: block; text-align: center; color: var(--text-muted); margin-top: 20px;">
+                    Aucun client ne correspond à votre recherche.
+                </h:panelGroup>
+            </h:form>
+        </div>
+
+        <div id="deleteModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-title">Confirmer la suppression</div>
+                <div class="modal-desc">Êtes-vous sûr de vouloir supprimer ce client ? Cette action est définitive et irréversible.</div>
+                <div class="modal-actions">
+                    <button class="btn-cancel" onclick="closeModal('deleteModal')">Annuler</button>
+                    <button class="btn-confirm-delete" onclick="confirmDeleteAction()">Oui, Supprimer</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="updateModal" class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-title">Confirmer les modifications</div>
+                <div class="modal-desc">Veuillez vérifier les changements avant d'appliquer la mise à jour :</div>
+                
+                <div class="diff-container">
+                    <div class="diff-row">
+                        <span class="diff-label">Nom</span>
+                        <span class="diff-old" id="diff_nom_old"></span>
+                        <span class="diff-new" id="diff_nom_new"></span>
+                    </div>
+                    <div class="diff-row">
+                        <span class="diff-label">Prénom</span>
+                        <span class="diff-old" id="diff_prenom_old"></span>
+                        <span class="diff-new" id="diff_prenom_new"></span>
+                    </div>
+                    <div class="diff-row">
+                        <span class="diff-label">Email</span>
+                        <span class="diff-old" id="diff_email_old"></span>
+                        <span class="diff-new" id="diff_email_new"></span>
+                    </div>
+                    <div class="diff-row">
+                        <span class="diff-label">Téléphone</span>
+                        <span class="diff-old" id="diff_tel_old"></span>
+                        <span class="diff-new" id="diff_tel_new"></span>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-cancel" onclick="closeModal('updateModal')">Annuler</button>
+                    <button class="btn-confirm-update" onclick="confirmUpdateAction()">Valider les modifications</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // --- Logique pour la SUPPRESSION ---
+            let confirmedDelete = false;
+            let currentDeleteElement = null;
+
+            function interceptDelete(event, element) {
+                if (!confirmedDelete) {
+                    event.preventDefault(); 
+                    currentDeleteElement = element;
+                    document.getElementById('deleteModal').style.display = 'flex';
+                    return false;
+                }
+                confirmedDelete = false; 
+                return true; 
+            }
+
+            function confirmDeleteAction() {
+                document.getElementById('deleteModal').style.display = 'none';
+                if (currentDeleteElement) {
+                    confirmedDelete = true;
+                    currentDeleteElement.click(); 
+                }
+            }
+
+            // --- Logique pour la MODIFICATION ---
+            let confirmedUpdate = false;
+            let currentUpdateBtnId = null;
+
+            function interceptUpdate(event, btnId, isUpdate) {
+                if (!isUpdate) return true; 
+
+                if (!confirmedUpdate) {
+                    event.preventDefault();
+                    currentUpdateBtnId = btnId;
+
+                    document.getElementById('diff_nom_old').innerText = document.getElementById('orig_nom').innerText;
+                    document.getElementById('diff_nom_new').innerText = document.getElementById('form:nom').value;
+
+                    document.getElementById('diff_prenom_old').innerText = document.getElementById('orig_prenom').innerText;
+                    document.getElementById('diff_prenom_new').innerText = document.getElementById('form:prenom').value;
+
+                    document.getElementById('diff_email_old').innerText = document.getElementById('orig_email').innerText;
+                    document.getElementById('diff_email_new').innerText = document.getElementById('form:email').value;
+
+                    document.getElementById('diff_tel_old').innerText = document.getElementById('orig_tel').innerText;
+                    document.getElementById('diff_tel_new').innerText = document.getElementById('form:telephone').value;
+
+                    document.getElementById('updateModal').style.display = 'flex';
+                    return false;
+                }
+                
+                confirmedUpdate = false; 
+                return true; 
+            }
+
+            function confirmUpdateAction() {
+                document.getElementById('updateModal').style.display = 'none';
+                if (currentUpdateBtnId) {
+                    confirmedUpdate = true;
+                    document.getElementById(currentUpdateBtnId).click(); 
+                }
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+                currentDeleteElement = null;
+                currentUpdateBtnId = null;
+            }
+        </script>
+    </h:body>
+</html>
