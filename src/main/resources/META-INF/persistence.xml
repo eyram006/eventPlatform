@@ -3,15 +3,21 @@
   <!-- Define Persistence Unit -->
   <persistence-unit name="EventGestPU" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <jta-data-source>java:app/Eveny</jta-data-source>
+    <jta-data-source>java:app/event</jta-data-source>
     <class>entities.Client</class>
     <class>entities.Personne</class>
     <class>entities.Organisateur</class>
     <class>entities.Gerant</class>
+    <class>entities.Evenement</class>
+    <class>entities.Billet</class>
+    <class>entities.Reservation</class>
+    <class>entities.Notification</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
       <property name="eclipseLink.target-database" value="PostgreSQL"/>
       <property name="eclipselink.weaving" value="false"/>
+      <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
   </persistence-unit>
 </persistence>

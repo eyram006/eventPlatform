@@ -7,15 +7,19 @@ package entities;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -40,6 +44,9 @@ public class Organisateur implements Serializable {
     @JoinColumn(name = "id", referencedColumnName = "id")
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     private Personne personne;
+
+    @OneToMany(mappedBy = "organisateur", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Evenement> evenements = new ArrayList<>();
 
     public Organisateur() {
     }
@@ -71,6 +78,9 @@ public class Organisateur implements Serializable {
     public void setPersonne(Personne personne) {
         this.personne = personne;
     }
+
+    public List<Evenement> getEvenements() { return evenements; }
+    public void setEvenements(List<Evenement> evenements) { this.evenements = evenements; }
 
     @Override
     public int hashCode() {

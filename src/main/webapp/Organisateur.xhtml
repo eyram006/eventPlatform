@@ -10,31 +10,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
         <style>
             :root {
-                --primary: #6366f1;
-                --primary-soft: #e0e7ff;
-                --bg: #f8fafc;
-                --card-bg: #ffffff;
-                --text-main: #1e293b;
-                --text-muted: #64748b;
-                --border: #e2e8f0;
-                --danger: #f43f5e;
-                --success: #10b981;
+                --primary: #6366f1; --primary-soft: #e0e7ff; --bg: #f8fafc;
+                --card-bg: #ffffff; --text-main: #1e293b; --text-muted: #64748b;
+                --border: #e2e8f0; --danger: #f43f5e; --success: #10b981;
+                --warning: #f59e0b; --premium: #8b5cf6; --vip: #ec4899;
             }
+            body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); margin: 0; padding: 0; }
 
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: var(--bg);
-                color: var(--text-main);
-                margin: 0; padding: 0;
-            }
-
-            nav {
-                background: var(--card-bg); padding: 1rem 10%; display: flex;
-                justify-content: space-between; align-items: center;
-                border-bottom: 1px solid var(--border); position: sticky;
-                top: 0; z-index: 100; margin-bottom: 40px;
-            }
-
+            nav { background: var(--card-bg); padding: 1rem 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; margin-bottom: 40px; }
             .logo { font-weight: 700; font-size: 1.25rem; color: var(--primary); text-decoration: none; }
             .nav-links { display: flex; gap: 20px; }
             .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
@@ -42,100 +25,90 @@
 
             .container { width: 85%; max-width: 1100px; margin: 0 auto; padding-bottom: 50px; }
 
-            /* Styles pour les messages de notification */
-            .messages { list-style-type: none; padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: 600; }
-            .messages li.info { color: #047857; background-color: #d1fae5; border: 1px solid #10b981; }
-            .messages li.error { color: #be123c; background-color: #ffe4e6; border: 1px solid #f43f5e; }
+            .messages { list-style-type: none; padding: 0; margin-bottom: 20px; }
+            .messages li.info { color: #047857; background-color: #d1fae5; border: 1px solid #10b981; padding: 12px 16px; border-radius: 8px; font-weight: 600; margin-bottom: 8px; }
+            .messages li.error { color: #be123c; background-color: #ffe4e6; border: 1px solid #f43f5e; padding: 12px 16px; border-radius: 8px; font-weight: 600; margin-bottom: 8px; }
 
-            .card-form {
-                background: var(--card-bg); padding: 24px; border-radius: 12px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 40px;
-            }
-
+            .card-form { background: var(--card-bg); padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid var(--border); margin-bottom: 40px; }
             .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
             .form-group { display: flex; flex-direction: column; gap: 8px; }
             label { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-            input { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; transition: all 0.2s; }
-            input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
-            
-            /* Style pour les erreurs de validation */
+            input, select, textarea { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; transition: all 0.2s; font-family: 'Inter', sans-serif; }
+            input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+            textarea { resize: vertical; min-height: 80px; }
             .error-msg { color: var(--danger); font-size: 0.8rem; font-weight: 600; margin-top: 4px; display: block; }
 
-            .btn-save {
-                background: var(--primary); color: white; padding: 12px 24px; border: none;
-                border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; transition: background 0.2s;
-            }
-            .btn-save:hover { background: #4f46e5; }
+            .btn { padding: 10px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+            .btn:hover { transform: translateY(-1px); }
+            .btn-primary { background: var(--primary); color: white; }
+            .btn-primary:hover { background: #4f46e5; }
+            .btn-success { background: var(--success); color: white; }
+            .btn-warning { background: var(--warning); color: white; }
+            .btn-danger { background: var(--danger); color: white; }
+            .btn-purple { background: var(--premium); color: white; }
+            .btn-muted { background: #94a3b8; color: white; }
+            .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text-main); }
+            .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+            .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+            .btn-lg { padding: 12px 24px; font-size: 0.95rem; margin-top: 20px; }
 
-            /* --- NOUVEAUX STYLES : Barre de recherche --- */
-            .header-with-search {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 20px;
-            }
-            .search-input {
-                width: 300px;
-                padding: 10px 18px;
-                border-radius: 20px;
-                border: 1px solid var(--border);
-                font-size: 0.9rem;
-                transition: all 0.2s;
-                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2364748b" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>') no-repeat 95% center;
-                background-color: white;
-                background-size: 16px;
-            }
-            .search-input:focus {
-                outline: none;
-                border-color: var(--primary);
-                box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-            }
+            .header-with-search { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+            .search-input { width: 300px; padding: 10px 18px; border-radius: 20px; border: 1px solid var(--border); font-size: 0.9rem; }
+            .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
 
             .organisateur-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-            .organisateur-card {
-                background: var(--card-bg); border-radius: 12px; padding: 24px;
-                border: 1px solid var(--border); display: flex; flex-direction: column; transition: all 0.2s;
-            }
+            .organisateur-card { background: var(--card-bg); border-radius: 12px; padding: 24px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: all 0.2s; }
             .organisateur-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.05); }
-
-            .org-avatar {
-                width: 45px; height: 45px; background: var(--primary-soft); color: var(--primary);
-                border-radius: 12px; display: flex; align-items: center; justify-content: center;
-                font-weight: 700; font-size: 1.2rem; margin-bottom: 15px;
-            }
-
+            .org-avatar { width: 45px; height: 45px; background: var(--primary-soft); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; }
             .org-name { font-weight: 700; font-size: 1.1rem; color: var(--text-main); margin-bottom: 4px; }
             .org-email { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px; }
+            .org-badge { display: inline-block; background: #f0fdf4; color: #166534; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: auto; align-self: flex-start; }
+            .actions { margin-top: 20px; padding-top: 15px; border-top: 1px solid #f1f5f9; display: flex; gap: 15px; flex-wrap: wrap; }
+            .action-link { text-decoration: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
 
-            .org-badge {
-                display: inline-block; background: #f0fdf4; color: #166534; padding: 4px 10px;
-                border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-top: auto; align-self: flex-start;
-            }
+            .section-panel { background: var(--card-bg); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 30px; }
+            .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+            .section-title { font-size: 1.2rem; font-weight: 700; }
+            .section-subtitle { color: var(--text-muted); font-size: 0.85rem; }
 
-            .actions { margin-top: 20px; padding-top: 15px; border-top: 1px solid #f1f5f9; display: flex; gap: 15px; }
-            .edit-link { color: var(--primary); text-decoration: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
-            .delete-link { color: var(--danger); text-decoration: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+            .event-list { display: flex; flex-direction: column; gap: 12px; }
+            .event-item { padding: 16px; border: 1px solid var(--border); border-radius: 10px; transition: all 0.2s; }
+            .event-item:hover { border-color: var(--primary); background: #fafafe; }
+            .event-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+            .event-title { font-weight: 700; font-size: 1rem; }
+            .event-detail { color: var(--text-muted); font-size: 0.82rem; margin-bottom: 10px; }
+            .event-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 
-            /* --- STYLES DES MODALES --- */
-            .modal-overlay {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(15, 23, 42, 0.6); display: none;
-                justify-content: center; align-items: center; z-index: 9999; backdrop-filter: blur(2px);
-            }
-            .modal-content { background: white; width: 500px; max-width: 90%; border-radius: 12px; padding: 25px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-            .modal-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
-            .modal-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
-            .modal-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
-            .btn-cancel { padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border); background: white; color: var(--text-main); font-weight: 600; cursor: pointer; }
-            .btn-confirm-delete { background: var(--danger); color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-            .btn-confirm-update { background: var(--success); color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
-            
-            /* Grille de comparaison */
-            .diff-container { display: flex; flex-direction: column; gap: 10px; }
-            .diff-row { display: grid; grid-template-columns: 100px 1fr 1fr; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 0.85rem; align-items: center; }
-            .diff-label { font-weight: 700; text-transform: uppercase; color: var(--text-muted); font-size: 0.75rem; }
-            .diff-old { color: var(--danger); text-decoration: line-through; }
-            .diff-new { color: var(--success); font-weight: 600; }
+            .tag { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+            .tag-brouillon { background: #f1f5f9; color: #475569; }
+            .tag-publie { background: #d1fae5; color: #065f46; }
+            .tag-annule { background: #ffe4e6; color: #be123c; }
+
+            .capacity-bar { height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+            .capacity-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
+            .capacity-text { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+
+            .info-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: #166534; font-weight: 600; margin-bottom: 15px; }
+
+            /* Billets */
+            .billet-card { border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 10px; transition: all 0.2s; }
+            .billet-card:hover { border-color: var(--primary); }
+            .billet-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+            .billet-type { font-weight: 700; font-size: 0.95rem; }
+            .type-STANDARD { color: var(--primary); }
+            .type-VIP { color: var(--vip); }
+            .type-PREMIUM { color: var(--premium); }
+            .billet-details { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+            .billet-stat { display: flex; flex-direction: column; }
+            .billet-stat-label { font-size: 0.7rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+            .billet-stat-value { font-size: 1rem; font-weight: 700; }
+            .billet-actions { display: flex; gap: 8px; margin-left: auto; }
+            .billet-progress { height: 4px; background: #e2e8f0; border-radius: 4px; overflow: hidden; margin-top: 10px; }
+            .billet-progress-fill { height: 100%; border-radius: 4px; }
+
+            /* Edition billet */
+            .edit-panel { background: #fefce8; border: 1px solid #fde68a; border-radius: 10px; padding: 20px; margin-bottom: 15px; }
+            .edit-panel h4 { margin: 0 0 15px 0; color: #92400e; font-size: 0.95rem; }
         </style>
     </h:head>
 
@@ -144,7 +117,7 @@
             <h:link outcome="index.xhtml" styleClass="logo">EventGest.</h:link>
             <div class="nav-links">
                 <h:link outcome="Organisateur.xhtml" style="color: var(--primary)" value="Organisateurs"/>
-                <h:link outcome="Gerant.xhtml" value="Gérants"/>
+                <h:link outcome="Gerant.xhtml" value="Gerants"/>
                 <h:link outcome="Client.xhtml" value="Clients"/>
             </div>
         </nav>
@@ -154,30 +127,21 @@
             
             <h:messages id="messagesGlobal" globalOnly="true" styleClass="messages" errorClass="error" infoClass="info" />
 
+            <!-- FORMULAIRE ORGANISATEUR -->
             <h:form id="form" styleClass="card-form">
-                
-                <h:panelGroup layout="block" id="originalValues" style="display:none;">
-                    <span id="orig_nom">#{organisateurBean.organisateur.personne.nom}</span>
-                    <span id="orig_prenom">#{organisateurBean.organisateur.personne.prenom}</span>
-                    <span id="orig_email">#{organisateurBean.organisateur.personne.email}</span>
-                    <span id="orig_org">#{organisateurBean.organisateur.organisation}</span>
-                </h:panelGroup>
-
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Nom</label>
                         <h:inputText id="nom" value="#{organisateurBean.organisateur.personne.nom}" 
-                                     required="true" requiredMessage="Le nom est obligatoire."
-                                     validatorMessage="Le nom doit contenir entre 2 et 50 caractères.">
+                                     required="true" requiredMessage="Le nom est obligatoire.">
                              <f:validateLength minimum="2" maximum="50" />
                         </h:inputText>
                         <h:message for="nom" styleClass="error-msg" />
                     </div>
                     <div class="form-group">
-                        <label>Prénom</label>
+                        <label>Prenom</label>
                         <h:inputText id="prenom" value="#{organisateurBean.organisateur.personne.prenom}" 
-                                     required="true" requiredMessage="Le prénom est obligatoire."
-                                     validatorMessage="Le prénom doit contenir entre 2 et 50 caractères.">
+                                     required="true" requiredMessage="Le prenom est obligatoire.">
                              <f:validateLength minimum="2" maximum="50" />
                         </h:inputText>
                         <h:message for="prenom" styleClass="error-msg" />
@@ -185,37 +149,274 @@
                     <div class="form-group">
                         <label>Email</label>
                         <h:inputText id="email" value="#{organisateurBean.organisateur.personne.email}" 
-                                     required="true" requiredMessage="L'email est obligatoire."
-                                     validatorMessage="Veuillez saisir une adresse email valide.">
+                                     required="true" requiredMessage="L'email est obligatoire.">
                              <f:validateRegex pattern="^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$" />
                         </h:inputText>
                         <h:message for="email" styleClass="error-msg" />
                     </div>
                     <div class="form-group">
-                        <label>Nom de l'Organisation</label>
+                        <label>Organisation</label>
                         <h:inputText id="orgName" value="#{organisateurBean.organisateur.organisation}" 
                                      required="true" requiredMessage="L'organisation est obligatoire."/>
                         <h:message for="orgName" styleClass="error-msg" />
                     </div>
                 </div>
-
                 <div style="display: flex; justify-content: flex-end;">
-                    <h:commandButton id="btnSubmit"
-                                     value="#{organisateurBean.organisateur.id == null ? 'Enregistrer le profil' : 'Mettre à jour'}" 
-                                     action="#{organisateurBean.enregistrer}" 
-                                     styleClass="btn-save"
-                                     onclick="return interceptUpdate(event, this.id, #{organisateurBean.organisateur.id != null});">
+                    <h:commandButton value="#{organisateurBean.organisateur.id == null ? 'Enregistrer le profil' : 'Mettre a jour'}" 
+                                     action="#{organisateurBean.enregistrer}" styleClass="btn btn-primary btn-lg">
                         <f:ajax execute="@form" render=":cardsForm :form :messagesGlobal" />
                     </h:commandButton>
                 </div>
             </h:form>
 
+            <!-- FORMULAIRE CREATION EVENEMENT -->
+            <h:form id="eventCreateForm">
+                <h:panelGroup rendered="#{organisateurBean.organisateurSelectionne != null}" layout="block">
+                    <div class="section-panel">
+                        <div class="section-header">
+                            <div>
+                                <div class="section-title">Evenements de #{organisateurBean.organisateurSelectionne.personne.nom} #{organisateurBean.organisateurSelectionne.personne.prenom}</div>
+                                <div class="section-subtitle">#{organisateurBean.organisateurSelectionne.organisation}</div>
+                            </div>
+                            <h:commandButton value="Fermer" action="#{organisateurBean.fermerEvenements}" styleClass="btn btn-muted">
+                                <f:ajax execute="@this" render=":eventCreateForm :eventListForm :billetsForm :messagesGlobal" />
+                            </h:commandButton>
+                        </div>
+
+                        <h3 style="margin-bottom: 12px;">#{organisateurBean.evenement.id == null ? 'Creer un evenement' : 'Modifier l evenement'}</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Titre</label>
+                                <h:inputText id="evTitre" value="#{organisateurBean.evenement.titre}" pt:placeholder="Titre de l'evenement"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Lieu</label>
+                                <h:inputText id="evLieu" value="#{organisateurBean.evenement.lieu}" pt:placeholder="Lieu"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Date</label>
+                                <h:inputText id="evDate" value="#{organisateurBean.evenement.dateEvenement}" pt:type="datetime-local">
+                                    <f:convertDateTime pattern="yyyy-MM-dd'T'HH:mm" type="date"/>
+                                </h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <label>Capacite (places)</label>
+                                <h:inputText id="evCapacite" value="#{organisateurBean.evenement.capacite}" pt:type="number" pt:min="1" pt:placeholder="Ex: 500"/>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 12px;">
+                            <label>Description</label>
+                            <h:inputTextarea id="evDesc" value="#{organisateurBean.evenement.description}" pt:placeholder="Description de l'evenement..."/>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 12px;">
+                            <h:commandButton value="Reinitialiser" action="#{organisateurBean.preparerNouvelEvenement}" styleClass="btn btn-outline"
+                                             rendered="#{organisateurBean.evenement.id != null}">
+                                <f:ajax execute="@this" render="@form" />
+                            </h:commandButton>
+                            <h:commandButton value="#{organisateurBean.evenement.id == null ? 'Creer l evenement' : 'Sauvegarder les modifications'}" 
+                                             action="#{organisateurBean.enregistrerEvenement}" styleClass="btn btn-primary">
+                                <f:ajax execute="@form" render="@form :eventListForm :billetsForm :messagesGlobal" />
+                            </h:commandButton>
+                        </div>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+
+            <!-- LISTE DES EVENEMENTS -->
+            <h:form id="eventListForm">
+                <h:panelGroup rendered="#{organisateurBean.organisateurSelectionne != null and not empty organisateurBean.evenementsOrganisateur}" layout="block">
+                    <div class="section-panel">
+                        <h3 style="margin-bottom: 16px;">Evenements existants</h3>
+                        <div class="event-list">
+                            <ui:repeat value="#{organisateurBean.evenementsOrganisateur}" var="ev">
+                                <div class="event-item" style="border-left: 4px solid #{ev.publie ? 'var(--success)' : (ev.brouillon ? 'var(--warning)' : 'var(--danger)')};">
+                                    <div class="event-top">
+                                        <div>
+                                            <div class="event-title">#{ev.titre}</div>
+                                            <div class="event-detail" style="margin-bottom: 0;">
+                                                <h:outputText value="#{ev.dateEvenement}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" type="date"/>
+                                                </h:outputText>
+                                                | #{ev.lieu} | #{ev.capacite} places
+                                            </div>
+                                        </div>
+                                        <span class="tag tag-#{ev.brouillon ? 'brouillon' : (ev.publie ? 'publie' : 'annule')}">#{ev.statutLabel}</span>
+                                    </div>
+                                    <div class="capacity-bar" style="margin-top: 10px;">
+                                        <div class="capacity-fill" style="width: #{ev.capacite > 0 ? (ev.placesRestantes * 100 / ev.capacite) : 0}%; background: #{ev.placesRestantes > 0 ? 'var(--success)' : 'var(--danger)'};"></div>
+                                    </div>
+                                    <div class="capacity-text">#{ev.placesRestantes} places restantes sur #{ev.capacite} | #{ev.placesAttribuees} allouees aux billets</div>
+                                    
+                                    <div class="event-actions">
+                                        <!-- Publier : visible uniquement si BROUILLON -->
+                                        <h:commandButton value="Publier l evenement" action="#{organisateurBean.publierEvenement(ev.id)}"
+                                                         styleClass="btn btn-success btn-sm" style="font-size: 0.85rem; padding: 8px 16px;"
+                                                         rendered="#{ev.brouillon}">
+                                            <f:ajax execute="@this" render="@form :messagesGlobal" />
+                                        </h:commandButton>
+                                        
+                                        <!-- Retirer de la publication : visible si PUBLIE -->
+                                        <h:commandButton value="Retirer la publication" action="#{organisateurBean.annulerEvenement(ev.id)}"
+                                                         styleClass="btn btn-warning btn-sm"
+                                                         rendered="#{ev.publie}">
+                                            <f:ajax execute="@this" render="@form :messagesGlobal" />
+                                        </h:commandButton>
+                                        
+                                        <!-- Retirer l'evenement (remboursement + notification + suppression) : visible si PUBLIE -->
+                                        <h:commandButton value="Retirer et rembourser" action="#{organisateurBean.retirerEvenement(ev.id)}"
+                                                         styleClass="btn btn-sm" style="background: linear-gradient(135deg, #f43f5e, #e11d48); color: white; font-weight: 700;"
+                                                         rendered="#{ev.publie}"
+                                                         onclick="return confirm('ATTENTION : Cette action va retirer l evenement, rembourser TOUS les clients ayant achete des billets et les notifier. Cette action est irreversible. Continuer ?');">
+                                            <f:ajax execute="@this" render="@form :billetsForm :messagesGlobal" />
+                                        </h:commandButton>
+                                        
+                                        <!-- Modifier : toujours visible -->
+                                        <h:commandButton value="Modifier" action="#{organisateurBean.selectionnerEvenement(ev)}" styleClass="btn btn-primary btn-sm">
+                                            <f:ajax execute="@this" render=":eventCreateForm" />
+                                        </h:commandButton>
+                                        
+                                        <!-- Gerer billets : toujours visible -->
+                                        <h:commandButton value="Gerer les billets" action="#{organisateurBean.ouvrirBillets(ev)}" styleClass="btn btn-purple btn-sm">
+                                            <f:ajax execute="@this" render=":billetsForm :messagesGlobal" />
+                                        </h:commandButton>
+                                        
+                                        <!-- Supprimer : toujours visible avec confirmation -->
+                                        <h:commandButton value="Supprimer" action="#{organisateurBean.supprimerEvenement(ev.id)}" styleClass="btn btn-danger btn-sm">
+                                            <f:ajax execute="@this" render="@form :billetsForm :messagesGlobal" />
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                            </ui:repeat>
+                        </div>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup rendered="#{organisateurBean.organisateurSelectionne != null and empty organisateurBean.evenementsOrganisateur}" style="display: block; text-align: center; color: var(--text-muted); padding: 20px;">
+                    Aucun evenement. Creez-en un ci-dessus.
+                </h:panelGroup>
+            </h:form>
+
+            <!-- FORMULAIRE BILLETS -->
+            <h:form id="billetsForm">
+                <h:panelGroup rendered="#{organisateurBean.evenementPourBillets != null}" layout="block" styleClass="section-panel">
+                    <div class="section-header">
+                        <div>
+                            <div class="section-title">Billets : #{organisateurBean.evenementPourBillets.titre}</div>
+                            <div class="section-subtitle">Repartissez les #{organisateurBean.evenementPourBillets.capacite} places en categories</div>
+                        </div>
+                        <h:commandButton value="Fermer" action="#{organisateurBean.fermerBillets}" styleClass="btn btn-muted">
+                            <f:ajax execute="@this" render="@form :eventListForm" />
+                        </h:commandButton>
+                    </div>
+
+                    <div class="info-box">
+                        Places restantes a distribuer : #{organisateurBean.evenementPourBillets.placesDisponiblesAAttribuer} / #{organisateurBean.evenementPourBillets.capacite}
+                    </div>
+
+                    <!-- Formulaire ajout billet -->
+                    <h:panelGroup rendered="#{not organisateurBean.modeEditionBillet}" layout="block">
+                        <h4 style="margin: 0 0 12px 0;">Ajouter un billet</h4>
+                        <div class="form-grid" style="margin-bottom: 20px;">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <h:selectOneMenu id="typeBillet" value="#{organisateurBean.nouveauBillet.typeBillet}">
+                                    <f:selectItem itemLabel="-- Choisir --" itemValue="" noSelectionOption="true"/>
+                                    <f:selectItems value="#{organisateurBean.typesBillet}" var="t" itemLabel="#{t}" itemValue="#{t}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group">
+                                <label>Prix (FCFA)</label>
+                                <h:inputText id="prixBillet" value="#{organisateurBean.nouveauBillet.prix}" pt:type="number" pt:min="0" pt:step="100"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre de places</label>
+                                <h:inputText id="placesBillet" value="#{organisateurBean.nouveauBillet.nbPlaces}" pt:type="number" pt:min="1"/>
+                            </div>
+                            <div class="form-group" style="justify-content: flex-end;">
+                                <h:commandButton value="Ajouter" action="#{organisateurBean.ajouterBillet}" styleClass="btn btn-purple">
+                                    <f:ajax execute="@form" render="@form :eventListForm :messagesGlobal" />
+                                </h:commandButton>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+
+                    <!-- Panneau edition billet -->
+                    <h:panelGroup rendered="#{organisateurBean.modeEditionBillet and organisateurBean.billetEnEdition != null}" layout="block" styleClass="edit-panel">
+                        <h4>Modification du billet #{organisateurBean.billetEnEdition.typeBillet}</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Type</label>
+                                <h:selectOneMenu id="editType" value="#{organisateurBean.billetEnEdition.typeBillet}">
+                                    <f:selectItems value="#{organisateurBean.typesBillet}" var="t" itemLabel="#{t}" itemValue="#{t}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group">
+                                <label>Prix (FCFA)</label>
+                                <h:inputText id="editPrix" value="#{organisateurBean.billetEnEdition.prix}" pt:type="number" pt:min="0" pt:step="100"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre de places</label>
+                                <h:inputText id="editPlaces" value="#{organisateurBean.billetEnEdition.nbPlaces}" pt:type="number" pt:min="1"/>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 15px;">
+                            <h:commandButton value="Annuler" action="#{organisateurBean.annulerEditionBillet}" styleClass="btn btn-outline">
+                                <f:ajax execute="@this" render="@form :messagesGlobal" />
+                            </h:commandButton>
+                            <h:commandButton value="Sauvegarder" action="#{organisateurBean.sauvegarderBillet}" styleClass="btn btn-success">
+                                <f:ajax execute="@form" render="@form :eventListForm :messagesGlobal" />
+                            </h:commandButton>
+                        </div>
+                    </h:panelGroup>
+
+                    <!-- Liste des billets existants -->
+                    <h4 style="margin: 0 0 12px 0;">Billets configures</h4>
+                    <ui:repeat value="#{organisateurBean.billetsEvenement}" var="b">
+                        <div class="billet-card">
+                            <div class="billet-header">
+                                <span class="billet-type type-#{b.typeBillet}">#{b.typeBillet}</span>
+                                <div class="billet-actions">
+                                    <h:commandButton value="Modifier" action="#{organisateurBean.editerBillet(b)}" styleClass="btn btn-outline btn-sm">
+                                        <f:ajax execute="@this" render="@form :messagesGlobal" />
+                                    </h:commandButton>
+                                    <h:commandButton value="Supprimer" action="#{organisateurBean.supprimerBillet(b.id)}" styleClass="btn btn-danger btn-sm">
+                                        <f:ajax execute="@this" render="@form :eventListForm :messagesGlobal" />
+                                    </h:commandButton>
+                                </div>
+                            </div>
+                            <div class="billet-details">
+                                <div class="billet-stat">
+                                    <span class="billet-stat-label">Prix</span>
+                                    <span class="billet-stat-value">#{b.prix} FCFA</span>
+                                </div>
+                                <div class="billet-stat">
+                                    <span class="billet-stat-label">Total places</span>
+                                    <span class="billet-stat-value">#{b.nbPlaces}</span>
+                                </div>
+                                <div class="billet-stat">
+                                    <span class="billet-stat-label">Restantes</span>
+                                    <span class="billet-stat-value" style="color: #{b.nbPlacesRestantes > 0 ? 'var(--success)' : 'var(--danger)'};">#{b.nbPlacesRestantes}</span>
+                                </div>
+                                <div class="billet-stat">
+                                    <span class="billet-stat-label">Vendus</span>
+                                    <span class="billet-stat-value" style="color: var(--primary);">#{b.nbPlaces - b.nbPlacesRestantes}</span>
+                                </div>
+                            </div>
+                            <div class="billet-progress">
+                                <div class="billet-progress-fill" style="width: #{b.nbPlaces > 0 ? ((b.nbPlaces - b.nbPlacesRestantes) * 100 / b.nbPlaces) : 0}%; background: linear-gradient(90deg, var(--primary), var(--premium));"></div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                    <h:panelGroup rendered="#{empty organisateurBean.billetsEvenement}" style="display: block; text-align: center; color: var(--text-muted); padding: 15px;">
+                        Aucun billet configure pour cet evenement.
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:form>
+
+            <!-- LISTE DES ORGANISATEURS -->
             <div class="header-with-search">
-                <h2 style="margin: 0;">Réseau d'Organisateurs</h2>
-                
+                <h2 style="margin: 0;">Reseau d'Organisateurs</h2>
                 <h:form id="searchForm">
-                    <h:inputText value="#{organisateurBean.motCle}" styleClass="search-input" 
-                                 pt:placeholder="Rechercher par nom, orga, email...">
+                    <h:inputText value="#{organisateurBean.motCle}" styleClass="search-input" pt:placeholder="Rechercher...">
                         <f:ajax event="keyup" listener="#{organisateurBean.rechercherOrganisateurs}" render=":cardsForm" delay="300" />
                     </h:inputText>
                 </h:form>
@@ -225,153 +426,31 @@
                 <div class="organisateur-grid">
                     <ui:repeat value="#{organisateurBean.liste}" var="orga">
                         <div class="organisateur-card">
-                            <div class="org-avatar">
-                                #{not empty orga.personne.nom ? orga.personne.nom.substring(0,1).toUpperCase() : 'O'}
-                            </div>
+                            <div class="org-avatar">#{not empty orga.personne.nom ? orga.personne.nom.substring(0,1).toUpperCase() : 'O'}</div>
                             <div class="org-name">#{orga.personne.nom} #{orga.personne.prenom}</div>
                             <div class="org-email">#{orga.personne.email}</div>
-
-                            <span class="org-badge">
-                                🏢 #{empty orga.organisation ? 'Indépendant' : orga.organisation}
-                            </span>
-
+                            <span class="org-badge">#{empty orga.organisation ? 'Independant' : orga.organisation}</span>
                             <div class="actions">
-                                <h:commandLink action="#{organisateurBean.selectionner(orga)}" styleClass="edit-link">
+                                <h:commandLink action="#{organisateurBean.selectionner(orga)}" styleClass="action-link" style="color: var(--primary);">
                                     <f:ajax execute="@this" render=":form :messagesGlobal" resetValues="true" />
                                     Modifier
                                 </h:commandLink>
-
-                                <h:commandLink action="#{organisateurBean.supprimer(orga.id)}" 
-                                               styleClass="delete-link"
-                                               onclick="return interceptDelete(event, this);">
-                                    <f:ajax execute="@this" render=":cardsForm :messagesGlobal" />
+                                <h:commandLink action="#{organisateurBean.ouvrirEvenements(orga)}" styleClass="action-link" style="color: var(--premium);">
+                                    <f:ajax execute="@this" render=":eventCreateForm :eventListForm :billetsForm :messagesGlobal" />
+                                    Evenements
+                                </h:commandLink>
+                                <h:commandLink action="#{organisateurBean.supprimer(orga.id)}" styleClass="action-link" style="color: var(--danger);">
+                                    <f:ajax execute="@this" render=":cardsForm :eventCreateForm :eventListForm :billetsForm :messagesGlobal" />
                                     Supprimer
                                 </h:commandLink>
                             </div>
                         </div>
                     </ui:repeat>
                 </div>
-                
                 <h:panelGroup rendered="#{empty organisateurBean.liste}" style="display: block; text-align: center; color: var(--text-muted); margin-top: 20px;">
-                    Aucun organisateur ne correspond à votre recherche.
+                    Aucun organisateur trouve.
                 </h:panelGroup>
             </h:form>
         </div>
-
-        <div id="deleteModal" class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-title">Confirmer la suppression</div>
-                <div class="modal-desc">Êtes-vous sûr de vouloir supprimer ce profil organisateur ? Cette action est irréversible.</div>
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeModal('deleteModal')">Annuler</button>
-                    <button type="button" class="btn-confirm-delete" onclick="confirmDeleteAction()">Oui, Supprimer</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="updateModal" class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-title">Confirmer les modifications</div>
-                <div class="modal-desc">Veuillez vérifier les changements avant d'appliquer la mise à jour :</div>
-                
-                <div class="diff-container">
-                    <div class="diff-row">
-                        <span class="diff-label">Nom</span>
-                        <span class="diff-old" id="diff_nom_old"></span>
-                        <span class="diff-new" id="diff_nom_new"></span>
-                    </div>
-                    <div class="diff-row">
-                        <span class="diff-label">Prénom</span>
-                        <span class="diff-old" id="diff_prenom_old"></span>
-                        <span class="diff-new" id="diff_prenom_new"></span>
-                    </div>
-                    <div class="diff-row">
-                        <span class="diff-label">Email</span>
-                        <span class="diff-old" id="diff_email_old"></span>
-                        <span class="diff-new" id="diff_email_new"></span>
-                    </div>
-                    <div class="diff-row">
-                        <span class="diff-label">Organisation</span>
-                        <span class="diff-old" id="diff_org_old"></span>
-                        <span class="diff-new" id="diff_org_new"></span>
-                    </div>
-                </div>
-
-                <div class="modal-actions">
-                    <button type="button" class="btn-cancel" onclick="closeModal('updateModal')">Annuler</button>
-                    <button type="button" class="btn-confirm-update" onclick="confirmUpdateAction()">Valider les modifications</button>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            // --- Logique pour la SUPPRESSION ---
-            let confirmedDelete = false;
-            let currentDeleteElement = null;
-
-            function interceptDelete(event, element) {
-                if (!confirmedDelete) {
-                    event.preventDefault();
-                    currentDeleteElement = element;
-                    document.getElementById('deleteModal').style.display = 'flex';
-                    return false;
-                }
-                confirmedDelete = false;
-                return true;
-            }
-
-            function confirmDeleteAction() {
-                document.getElementById('deleteModal').style.display = 'none';
-                if (currentDeleteElement) {
-                    confirmedDelete = true;
-                    currentDeleteElement.click(); 
-                }
-            }
-
-            // --- Logique pour la MODIFICATION ---
-            let confirmedUpdate = false;
-            let currentUpdateBtnId = null;
-
-            function interceptUpdate(event, btnId, isUpdate) {
-                if (!isUpdate) return true; 
-
-                if (!confirmedUpdate) {
-                    event.preventDefault();
-                    currentUpdateBtnId = btnId;
-
-                    document.getElementById('diff_nom_old').innerText = document.getElementById('orig_nom').innerText;
-                    document.getElementById('diff_nom_new').innerText = document.getElementById('form:nom').value;
-
-                    document.getElementById('diff_prenom_old').innerText = document.getElementById('orig_prenom').innerText;
-                    document.getElementById('diff_prenom_new').innerText = document.getElementById('form:prenom').value;
-
-                    document.getElementById('diff_email_old').innerText = document.getElementById('orig_email').innerText;
-                    document.getElementById('diff_email_new').innerText = document.getElementById('form:email').value;
-
-                    document.getElementById('diff_org_old').innerText = document.getElementById('orig_org').innerText;
-                    document.getElementById('diff_org_new').innerText = document.getElementById('form:orgName').value;
-
-                    document.getElementById('updateModal').style.display = 'flex';
-                    return false;
-                }
-                
-                confirmedUpdate = false; 
-                return true; 
-            }
-
-            function confirmUpdateAction() {
-                document.getElementById('updateModal').style.display = 'none';
-                if (currentUpdateBtnId) {
-                    confirmedUpdate = true;
-                    document.getElementById(currentUpdateBtnId).click();
-                }
-            }
-
-            function closeModal(modalId) {
-                document.getElementById(modalId).style.display = 'none';
-                currentDeleteElement = null;
-                currentUpdateBtnId = null;
-            }
-        </script>
     </h:body>
 </html>
